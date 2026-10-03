@@ -1,0 +1,35 @@
+[package]
+name = "raft-exchange"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "A replicated spot exchange: Raft from scratch, a price-time matching engine, and atomic settlement, verified by deterministic simulation"
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
+axum = "0.8.9"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+thiserror = "2.0.21"
+tokio = { version = "1.53.1", features = ["full"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+
+[dev-dependencies]
+criterion = "0.8.2"
+proptest = "1.11.0"
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+
+[profile.bench]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
